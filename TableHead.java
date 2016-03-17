@@ -130,7 +130,9 @@ public class TableHead extends ViewGroup {
                     vgHeight = height0 + cHeight + cParams.topMargin + cParams.bottomMargin + 1;
                 }
                 if (i > 1) {
-                    vgHeight = (getChildAt(i - 1).getMeasuredHeight() > cHeight ? getChildAt(i - 1).getMeasuredHeight() : cHeight) + cParams.topMargin + cParams.bottomMargin + height0;
+                    int heightBefore = getChildAt(i - 1).getMeasuredHeight() + ((MarginLayoutParams) (getChildAt(i - 1).getLayoutParams())).topMargin + ((MarginLayoutParams) (getChildAt(i - 1).getLayoutParams())).bottomMargin;
+                    int heightNow = cHeight + cParams.topMargin + cParams.bottomMargin;
+                    vgHeight = (heightBefore > heightNow ? heightBefore : heightNow) + height0;
                 }
                 vgWitdh += cWidth + cParams.leftMargin + cParams.rightMargin;
             }
@@ -154,8 +156,7 @@ public class TableHead extends ViewGroup {
             canvas.drawLine(l - 1, height0, l - 1, vgHeight, mPaint);
         }
         cls.clear();
-        canvas.drawLine(0, vgHeight-1, vgWitdh, vgHeight-1, mPaint);
-        super.onDraw(canvas);
+        canvas.drawLine(0, vgHeight - 1, vgWitdh, vgHeight - 1, mPaint);
     }
 
     @Override
